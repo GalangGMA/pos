@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\ProdukController;
 use App\Http\Controllers\Api\TransaksiController;
 use App\Http\Controllers\Api\BankAccountController;
 use App\Http\Controllers\Api\AppVersionController;
+use App\Http\Controllers\Api\BillingController;
+use App\Http\Controllers\Api\StockTransferController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,22 +30,17 @@ Route::post('/success', function () {
 // Auth routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login-mobile', [AuthController::class, 'loginx']);
-Route::post('/login', function(Request $request) {
-    if (Auth::attempt($request->only('username', 'password'))) {
-        $user = Auth::user();
-        $token = $user->createToken('api-token')->plainTextToken;
-        return response()->json(['token' => $token, 'user' => $user]);
-    }
-    return response()->json(['message' => 'Invalid credentials'], 401);
-});
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/app-version/latest', [AppVersionController::class, 'latest']);
+Route::get('/app-version', [AppVersionController::class, 'latest']);
 Route::get('/check-version', [AppVersionController::class, 'check']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/billing/summary', [BillingController::class, 'summary']);
+    Route::post('/billing/payments/{payment}/submit', [BillingController::class, 'submit']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -51,7 +48,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'subscription.active', 'plan.feature:mobile_access'])->group(function () {
     Route::get('/produk', [ProdukController::class, 'index']);
     Route::get('/produk/{id}', [ProdukController::class, 'show']);
     Route::post('/produk', [ProdukController::class, 'store']);
@@ -60,11 +57,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/produk/{id}/update-stok', [ProdukController::class, 'updateStok']);
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'subscription.active', 'plan.feature:mobile_access'])->group(function () {
     Route::get('/bank-accounts', [BankAccountController::class, 'index']);
+    Route::get('/stock-transfers', [StockTransferController::class, 'index'])->middleware('plan.feature:inventory_transfer');
+    Route::post('/stock-transfers', [StockTransferController::class, 'store'])->middleware('plan.feature:inventory_transfer');
 
     Route::get('/transaksi', [TransaksiController::class, 'index']);
-    Route::get('/transaksi/report', [TransaksiController::class, 'getDetailAll']);
+    Route::get('/transaksi/report', [TransaksiController::class, 'getDetailAll'])->middleware('plan.feature:reports');
     Route::get('/transaksi/type-bayar', [TransaksiController::class, 'typeBayar']);
     Route::get('/transaksi/{id}/detail', [TransaksiController::class, 'getDetail']);
     Route::post('/transaksi', [TransaksiController::class, 'store']);

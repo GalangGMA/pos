@@ -17,11 +17,29 @@ class UserSeeder extends Seeder
         //
         DB::table('users')->insert([
             [
+                'username' => 'super_admin',
+                'name' => 'Super Administrator',
+                'email' => 'super_admin@example.com',
+                'password' => Hash::make('secret.1'),
+                'role' => 'super_admin',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'username' => 'admin',
-                'name' => 'Administrator',
+                'name' => 'Admin Toko',
                 'email' => 'admin@example.com',
-                'password' => Hash::make('password'), // gunakan bcrypt hash
-                'role' => 'admin',
+                'password' => Hash::make('password'),
+                'role' => 'admin_toko',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'username' => 'owner',
+                'name' => 'Owner Toko',
+                'email' => 'owner@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'owner',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
