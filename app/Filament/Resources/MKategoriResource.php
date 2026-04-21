@@ -4,13 +4,16 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MKategoriResource\Pages;
 use App\Models\MKategori;
-use Filament\Forms;
+use App\Models\User;
 use Filament\Forms\Form;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class MKategoriResource extends Resource
 {
@@ -22,6 +25,10 @@ class MKategoriResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
+            Hidden::make('tenant_id')
+                ->default(Auth::user()?->tenant_id)
+                ->dehydrated(),
+
             TextInput::make('nama')
                 ->label('Nama Kategori')
                 ->required()
@@ -48,5 +55,17 @@ class MKategoriResource extends Resource
             'create' => Pages\CreateMKategori::route('/create'),
             'edit' => Pages\EditMKategori::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+        $authUser = Auth::user();
+
+        if (! $authUser instanceof User) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        return $query->where('tenant_id', $authUser->tenant_id);
     }
 }

@@ -10,7 +10,12 @@ class MKategori extends Model
     use HasFactory;
 
     protected $table = 'm_kategoris';
-    protected $fillable = ['nama'];
+    protected $fillable = ['tenant_id', 'nama'];
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 
     public function produks()
     {

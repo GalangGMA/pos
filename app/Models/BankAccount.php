@@ -10,4 +10,9 @@ class BankAccount extends Model
     use HasFactory;
     protected $table = 'bank_accounts';
     protected $guarded = ['id'];
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 }

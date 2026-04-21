@@ -5,20 +5,17 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BankAccountResource\Pages;
 use Filament\Tables\Table;
 use App\Models\BankAccount;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Filters\Filter;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class BankAccountResource extends Resource
 {
@@ -33,6 +30,10 @@ class BankAccountResource extends Resource
     {
         return $form
             ->schema([
+                Hidden::make('tenant_id')
+                    ->default(Auth::user()?->tenant_id)
+                    ->dehydrated(),
+
                 TextInput::make('bank_name')
                     ->label('Nama Bank')
                     ->required()
@@ -92,5 +93,17 @@ class BankAccountResource extends Resource
             'create' => Pages\CreateBankAccount::route('/create'),
             'edit' => Pages\EditBankAccount::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+        $authUser = Auth::user();
+
+        if (! $authUser instanceof User) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        return $query->where('tenant_id', $authUser->tenant_id);
     }
 }
