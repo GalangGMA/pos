@@ -89,7 +89,6 @@ class BarberSeeder extends Seeder
         ];
 
         foreach ($menus as $menu) {
-
             $produkId = DB::table('produks')->insertGetId([
                 'tenant_id'  => $tenantId,
                 'nama'       => $menu['nama'],
@@ -100,7 +99,6 @@ class BarberSeeder extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now,
             ]);
-
             DB::table('product_stocks')->insert([
                 'tenant_id'     => $tenantId,
                 'produk_id'     => $produkId,
@@ -110,7 +108,6 @@ class BarberSeeder extends Seeder
                 'created_at'    => $now,
                 'updated_at'    => $now,
             ]);
-
             DB::table('product_outlets')->insert([
                 'tenant_id'  => $tenantId,
                 'produk_id'  => $produkId,
