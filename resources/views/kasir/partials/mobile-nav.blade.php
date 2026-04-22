@@ -1,4 +1,4 @@
-<nav class="fixed inset-x-0 bottom-0 z-20 mx-auto w-full max-w-md px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 text-slate-300">
+<nav id="mobile-nav" class="fixed inset-x-0 bottom-0 z-20 mx-auto w-full max-w-md px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 text-slate-300">
     <div class="grid grid-cols-5 items-end gap-2 rounded-[2rem] border border-white/10 bg-white/[0.06] px-4 py-3 text-[11px] font-medium shadow-[0_-12px_30px_rgba(2,6,23,0.35)] backdrop-blur-xl">
         <a href="{{ route('home') }}" class="flex flex-col items-center gap-1.5 text-center transition hover:text-slate-200 {{ ($active ?? null) === 'home' ? 'text-[#ff7a1a]' : '' }}">
             <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -17,15 +17,15 @@
             </span>
             <span>Produk</span>
         </a>
-        <a href="{{ route('kasir.index') }}" class="-mt-8 flex flex-col items-center gap-2 text-center {{ ($active ?? null) === 'kasir' ? 'text-slate-100' : 'text-slate-400' }}">
-            <span class="inline-flex h-14 w-14 items-center justify-center rounded-full {{ ($active ?? null) === 'kasir' ? 'bg-[#ff7a1a] text-white shadow-[0_12px_24px_rgba(249,115,22,0.35)] ring-4 ring-slate-950/70' : 'bg-white/10 text-slate-300 ring-4 ring-slate-950/70' }}">
+        <a href="{{ route('kasir.index') }}" class="group -mt-8 flex flex-col items-center gap-2 text-center transition hover:text-[#c2410c] {{ ($active ?? null) === 'kasir' ? 'text-slate-100' : 'text-slate-400' }}">
+            <span class="inline-flex h-14 w-14 items-center justify-center rounded-full transition {{ ($active ?? null) === 'kasir' ? 'bg-[#ff7a1a] text-white shadow-[0_12px_24px_rgba(249,115,22,0.35)] ring-4 ring-slate-950/70 hover:bg-[#c2410c]' : 'bg-white/10 text-slate-300 ring-4 ring-slate-950/70 hover:bg-white/20 hover:text-white' }}">
                 <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <circle cx="9" cy="20" r="1"></circle>
                     <circle cx="18" cy="20" r="1"></circle>
                     <path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h9.7a1 1 0 0 0 1-.8L21 7H7"></path>
                 </svg>
             </span>
-            <span class="font-semibold {{ ($active ?? null) === 'kasir' ? 'text-[#ff7a1a]' : '' }}">Kasir</span>
+            <span class="font-semibold transition {{ ($active ?? null) === 'kasir' ? 'text-[#ff7a1a] group-hover:text-[#c2410c]' : 'group-hover:text-[#c2410c]' }}">Kasir</span>
         </a>
         <a href="{{ route('kasir.reports') }}" class="flex flex-col items-center gap-1.5 text-center transition hover:text-slate-200 {{ ($active ?? null) === 'reports' ? 'text-[#ff7a1a]' : '' }}">
             <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

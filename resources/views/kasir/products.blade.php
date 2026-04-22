@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produk Kasir</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    @include('kasir.partials.theme-head')
+    @include('kasir.partials.theme-style')
 </head>
 <body class="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
     <div class="relative isolate overflow-hidden">
-        <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.18),_transparent_35%),radial-gradient(circle_at_right,_rgba(59,130,246,0.16),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_45%,_#111827_100%)]"></div>
+        <div id="page-background" class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.18),_transparent_35%),radial-gradient(circle_at_right,_rgba(59,130,246,0.16),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_45%,_#111827_100%)]"></div>
 
         <header class="border-b border-white/10 bg-slate-950/80 backdrop-blur">
             <div class="mx-auto flex w-full max-w-md items-center justify-between gap-3 px-4 py-5">
@@ -17,9 +19,12 @@
                     <p class="mt-1 truncate text-sm text-slate-300">{{ $outlet->name }}</p>
                 </div>
 
-                <div class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-right text-xs text-slate-300">
-                    <div id="product-count" class="font-semibold text-white">{{ $products->count() }}</div>
-                    <div>Produk</div>
+                <div class="flex items-center gap-2">
+                    @include('kasir.partials.theme-toggle')
+                    <div class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-right text-xs text-slate-300">
+                        <div id="product-count" class="font-semibold text-white">{{ $products->count() }}</div>
+                        <div>Produk</div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -123,7 +128,7 @@
             emptyProducts.classList.toggle('hidden', items.length > 0);
 
             productList.innerHTML = items.map(product => `
-                <article class="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-3 shadow-lg shadow-slate-950/10">
+                <article class="overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-3 shadow-lg shadow-slate-950/10">
                     <div class="flex items-center gap-3">
                         <div class="h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-slate-900/80">
                             ${product.image_url
@@ -133,12 +138,12 @@
                         <div class="min-w-0 flex-1">
                             <div class="flex items-start justify-between gap-3">
                                 <div class="min-w-0">
-                                    <h3 class="truncate text-base font-semibold text-white">${escapeHtml(product.nama)}</h3>
+                                    <h3 class="line-clamp-2 text-sm font-semibold leading-tight text-white">${escapeHtml(product.nama)}</h3>
                                     <p class="mt-1 text-xs text-slate-400">${escapeHtml(product.kategori || 'Lainnya')}</p>
                                 </div>
-                                <span class="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-xs text-slate-300">Stok ${product.stok}</span>
+                                <span class="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium text-slate-200 whitespace-nowrap">Stok ${product.stok}</span>
                             </div>
-                            <div class="mt-3 text-lg font-semibold text-[#ff7a1a]">${formatCurrency(product.harga)}</div>
+                            <div class="mt-3 inline-flex items-center rounded-full bg-[#ff7a1a]/10 px-3 py-1 text-[13px] font-semibold text-[#ff9a4d]">${formatCurrency(product.harga)}</div>
                         </div>
                     </div>
                 </article>
@@ -165,5 +170,6 @@
         renderCategories();
         renderProducts();
     </script>
+    @include('kasir.partials.theme-script')
 </body>
 </html>

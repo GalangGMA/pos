@@ -5,29 +5,260 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kasir Web</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        (() => {
+            let savedTheme = null;
+
+            try {
+                savedTheme = localStorage.getItem('kasir-theme');
+            } catch (error) {
+                savedTheme = null;
+            }
+
+            const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+            const theme = savedTheme || (prefersLight ? 'light' : 'dark');
+
+            document.documentElement.dataset.theme = theme;
+        })();
+    </script>
+    <style>
+        html[data-theme="light"] {
+            color-scheme: light;
+        }
+
+        html[data-theme="light"] body {
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        html[data-theme="light"] #page-background {
+            background: radial-gradient(circle at top, rgba(251, 146, 60, 0.18), transparent 35%), radial-gradient(circle at right, rgba(59, 130, 246, 0.14), transparent 30%), linear-gradient(180deg, #f8fafc 0%, #eef2ff 45%, #e2e8f0 100%);
+        }
+
+        html[data-theme="light"] header,
+        html[data-theme="light"] #kasir-header-card,
+        html[data-theme="light"] #catalog-card,
+        html[data-theme="light"] #transactions-card,
+        html[data-theme="light"] #cart-sheet,
+        html[data-theme="light"] nav.fixed {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(148, 163, 184, 0.35);
+            color: #0f172a;
+        }
+
+        html[data-theme="light"] header {
+            background: rgba(248, 250, 252, 0.96) !important;
+        }
+
+        html[data-theme="light"] #kasir-header-card {
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        html[data-theme="light"] #kasir-header-card h1,
+        html[data-theme="light"] #kasir-header-card p,
+        html[data-theme="light"] #catalog-card h2,
+        html[data-theme="light"] #catalog-card p,
+        html[data-theme="light"] #transactions-card h2,
+        html[data-theme="light"] #transactions-card p,
+        html[data-theme="light"] #cart-sheet h2,
+        html[data-theme="light"] #cart-sheet p {
+            color: #0f172a;
+        }
+
+        html[data-theme="light"] #kasir-header-card .inline-flex.items-center.gap-2.rounded-full {
+            background: rgba(251, 146, 60, 0.16) !important;
+            border-color: rgba(249, 115, 22, 0.22) !important;
+            color: #c2410c !important;
+        }
+
+        html[data-theme="light"] #kasir-header-card .inline-flex.items-center.gap-2.rounded-full .bg-orange-300 {
+            background: #f97316 !important;
+        }
+
+        html[data-theme="light"] #kasir-header-card [class*="text-slate-"] ,
+        html[data-theme="light"] #catalog-card [class*="text-slate-"] ,
+        html[data-theme="light"] #transactions-card [class*="text-slate-"] ,
+        html[data-theme="light"] #cart-sheet [class*="text-slate-"] ,
+        html[data-theme="light"] #kasir-header-card .text-white:not(button),
+        html[data-theme="light"] #catalog-card .text-white:not(button),
+        html[data-theme="light"] #transactions-card .text-white:not(button),
+        html[data-theme="light"] #cart-sheet .text-white:not(button) {
+            color: #0f172a;
+        }
+
+        html[data-theme="light"] #catalog-card,
+        html[data-theme="light"] #transactions-card,
+        html[data-theme="light"] #cart-sheet {
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        html[data-theme="light"] #catalog-card article,
+        html[data-theme="light"] #cart-items > div,
+        html[data-theme="light"] #cart-summary-card,
+        html[data-theme="light"] #transfer-wrapper,
+        html[data-theme="light"] #transactions-card .divide-y > div {
+            background: rgba(255, 255, 255, 0.92);
+            border-color: rgba(148, 163, 184, 0.35);
+        }
+
+        html[data-theme="light"] #catalog-card article .bg-slate-900\/80,
+        html[data-theme="light"] #cart-items > div .bg-slate-950\/80,
+        html[data-theme="light"] #transfer-wrapper .bg-slate-950\/30,
+        html[data-theme="light"] #cart-summary-card {
+            background: rgba(241, 245, 249, 0.92);
+        }
+
+        html[data-theme="light"] #catalog-card .aspect-\[16\/10\],
+        html[data-theme="light"] #catalog-card .aspect-\[16\/10\] > div {
+            background: #e2e8f0;
+        }
+
+        html[data-theme="light"] #catalog-card .aspect-\[16\/10\] .text-slate-500 {
+            color: #64748b;
+        }
+
+        html[data-theme="light"] #catalog-card .bg-gradient-to-br.from-slate-800.to-slate-900,
+        html[data-theme="light"] #catalog-card .bg-slate-900\/80,
+        html[data-theme="light"] #catalog-card .bg-slate-800,
+        html[data-theme="light"] #catalog-card .bg-slate-900 {
+            background: #e2e8f0 !important;
+            color: #64748b !important;
+        }
+
+        html[data-theme="light"] #search-products,
+        html[data-theme="light"] select,
+        html[data-theme="light"] #cash-input {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(148, 163, 184, 0.45);
+            color: #0f172a;
+        }
+
+        html[data-theme="light"] #search-products::placeholder,
+        html[data-theme="light"] #cash-input::placeholder {
+            color: #94a3b8;
+        }
+
+        html[data-theme="light"] #cart-toggle-button {
+            box-shadow: 0 16px 35px rgba(249, 115, 22, 0.22);
+        }
+
+        html[data-theme="light"] #cart-toggle-button,
+        html[data-theme="light"] #theme-toggle-button,
+        html[data-theme="light"] #checkout-form button[type="submit"] {
+            border-color: rgba(251, 146, 60, 0.22);
+        }
+
+        html[data-theme="light"] #cart-toggle-button {
+            background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+            color: #fff;
+        }
+
+        html[data-theme="light"] #cart-toggle-button:hover {
+            background: linear-gradient(135deg, #fdba74 0%, #fb923c 100%);
+        }
+
+        html[data-theme="light"] #theme-toggle-button {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(148, 163, 184, 0.4);
+            color: #0f172a;
+        }
+
+        html[data-theme="light"] #catalog-card article h3,
+        html[data-theme="light"] #cart-items h3,
+        html[data-theme="light"] #transactions-card .text-white,
+        html[data-theme="light"] #transactions-card .text-slate-400,
+        html[data-theme="light"] #cart-sheet .text-white,
+        html[data-theme="light"] #cart-sheet .text-slate-400,
+        html[data-theme="light"] #kasir-header-card .text-white,
+        html[data-theme="light"] #kasir-header-card .text-slate-300,
+        html[data-theme="light"] #kasir-header-card .text-slate-400 {
+            color: #0f172a;
+        }
+
+        html[data-theme="light"] #catalog-card article .bg-white\/10,
+        html[data-theme="light"] #catalog-card article .bg-slate-900\/80,
+        html[data-theme="light"] #cart-items > div .bg-slate-950\/80,
+        html[data-theme="light"] #cart-items > div .bg-white\/10,
+        html[data-theme="light"] #cart-items > div .border-white\/10,
+        html[data-theme="light"] #cart-summary-card,
+        html[data-theme="light"] #transfer-wrapper,
+        html[data-theme="light"] #payment-method,
+        html[data-theme="light"] #cash-input,
+        html[data-theme="light"] #search-products {
+            box-shadow: none;
+        }
+
+        html[data-theme="light"] #category-filters button {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(148, 163, 184, 0.35);
+            color: #334155;
+        }
+
+        html[data-theme="light"] #category-filters button.bg-\[\#ff7a1a\] {
+            background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        html[data-theme="light"] #product-grid .bg-\[\#ff7a1a\]\/10,
+        html[data-theme="light"] #cart-items .text-emerald-200,
+        html[data-theme="light"] #transactions-card .text-\[\#ff7a1a\],
+        html[data-theme="light"] #cart-summary-card .text-white,
+        html[data-theme="light"] #cart-summary-card .text-slate-300 {
+            color: #c2410c;
+        }
+
+        html[data-theme="light"] #mobile-nav [class*="text-slate-"] {
+            color: #475569;
+        }
+
+        html[data-theme="light"] nav.fixed > div {
+            background: rgba(255, 255, 255, 0.88);
+            border-color: rgba(148, 163, 184, 0.3);
+            box-shadow: 0 -12px 30px rgba(15, 23, 42, 0.08);
+            color: #334155;
+        }
+    </style>
 </head>
-<body class="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
+<body class="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100" data-theme="dark">
     <div class="relative isolate overflow-hidden">
-        <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.18),_transparent_35%),radial-gradient(circle_at_right,_rgba(59,130,246,0.16),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_45%,_#111827_100%)]"></div>
+        <div id="page-background" class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.18),_transparent_35%),radial-gradient(circle_at_right,_rgba(59,130,246,0.16),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_45%,_#111827_100%)]"></div>
 
         <header class="border-b border-white/10 bg-slate-950/80 backdrop-blur">
-            <div class="mx-auto flex w-full max-w-md items-center justify-between gap-3 px-4 py-5">
-                <div class="min-w-0">
-                    <h1 class="text-2xl font-semibold tracking-tight text-white">Kasir</h1>
-                    <p class="mt-1 truncate text-sm text-slate-300">{{ $outlet->name }} • {{ auth()->user()->name }}</p>
-                </div>
+            <div class="mx-auto w-full max-w-md px-4 py-4">
+                <div id="kasir-header-card" class="relative rounded-[1.75rem] border border-white/10 bg-white/[0.05] px-4 py-4 shadow-2xl shadow-slate-950/20">
+                    <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-300/70 to-transparent"></div>
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="min-w-0">
+                            <div class="inline-flex items-center gap-2 rounded-full border border-orange-300/20 bg-orange-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-orange-100">
+                                <span class="h-2 w-2 rounded-full bg-orange-300"></span>
+                                Kasir Aktif
+                            </div>
+                            <h1 class="mt-3 flex items-center gap-2 text-2xl font-semibold tracking-tight text-white">
+                                <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-300 to-orange-500 text-slate-950 shadow-lg shadow-orange-500/20">
+                                    <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M6 3h15l-1.5 9h-13z"></path>
+                                        <circle cx="9" cy="20" r="1"></circle>
+                                        <circle cx="18" cy="20" r="1"></circle>
+                                        <path d="M6 3L5 1H2"></path>
+                                    </svg>
+                                </span>
+                                <span>Kasir</span>
+                            </h1>
+                            <p class="mt-1 truncate text-sm text-slate-300">{{ $outlet->name }}</p>
+                            <p class="mt-1 truncate text-xs text-slate-400">{{ auth()->user()->name }}</p>
+                        </div>
 
-                <div class="flex items-center gap-2">
-                    <div class="rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-right text-xs text-slate-300">
-                        <div class="font-semibold text-white">{{ number_format($products->count()) }}</div>
-                        <div>Produk</div>
-                    </div>
-                    <form method="POST" action="{{ route('kasir.logout') }}">
-                        @csrf
-                        <button type="submit" class="inline-flex h-11 items-center justify-center rounded-2xl border border-rose-400/30 bg-rose-500/10 px-4 text-sm font-semibold text-rose-100 transition hover:border-rose-300/50 hover:bg-rose-500/20">
-                            Logout
+                        <button id="theme-toggle-button" type="button" class="inline-flex shrink-0 items-center gap-2 rounded-2xl border border-white/10 bg-slate-950/50 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/10">
+                            <span id="theme-toggle-icon" class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-current">
+                                <svg viewBox="0 0 24 24" class="h-4.5 w-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                                </svg>
+                            </span>
+                            <span id="theme-toggle-label">Light</span>
                         </button>
-                    </form>
+                    </div>
+
                 </div>
             </div>
         </header>
@@ -57,7 +288,7 @@
                     </div>
                 @endif
 
-                <div class="rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-2xl shadow-slate-950/20">
+                <div id="catalog-card" class="rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-2xl shadow-slate-950/20">
                     <div class="flex flex-col gap-4">
                         <div>
                             <h2 class="text-lg font-semibold text-white">Katalog Produk</h2>
@@ -79,7 +310,7 @@
                     </div>
                 </div>
 
-                <div class="rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-2xl shadow-slate-950/20">
+                <div id="transactions-card" class="rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-2xl shadow-slate-950/20">
                     <div class="flex items-center justify-between gap-4">
                         <div>
                             <h2 class="text-lg font-semibold text-white">Transaksi Terakhir</h2>
@@ -147,70 +378,76 @@
             <div id="cart-panel" class="pointer-events-none fixed inset-0 z-40 opacity-0 transition duration-200">
                 <button id="cart-backdrop" type="button" class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm transition duration-200"></button>
 
-                <div class="absolute inset-x-0 bottom-0 mx-auto w-full max-w-md px-4 pb-4">
-                    <div id="cart-sheet" class="translate-y-8 rounded-[2rem] border border-white/10 bg-slate-900/95 p-4 shadow-2xl shadow-slate-950/40 backdrop-blur transition duration-200 ease-out">
-                        <div class="mx-auto mb-4 h-1.5 w-14 rounded-full bg-white/15"></div>
-                        <div class="flex items-start justify-between gap-4">
-                            <div>
-                                <h2 class="text-lg font-semibold text-white">Keranjang</h2>
-                                <p class="mt-1 text-sm text-slate-400">Pilih metode pembayaran dan simpan transaksi saat semua item sudah sesuai.</p>
-                            </div>
-                            <button id="cart-close-button" type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-lg text-white transition hover:bg-white/10">&times;</button>
-                        </div>
-
-                        <form id="checkout-form" method="POST" action="{{ route('kasir.store') }}" class="mt-5 max-h-[70vh] space-y-5 overflow-y-auto pr-1">
-                            @csrf
-                            <div id="cart-items" class="space-y-3"></div>
-                            <div id="cart-empty" class="rounded-3xl border border-dashed border-white/10 px-4 py-8 text-center text-sm text-slate-500">
-                                Keranjang masih kosong. Tambahkan produk dari katalog di atas.
-                            </div>
-
-                            <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-4">
-                                <div class="space-y-3 text-sm">
-                                    <div class="flex items-center justify-between text-slate-300">
-                                        <span>Subtotal</span>
-                                        <span id="cart-subtotal">Rp 0</span>
-                                    </div>
-                                    <div class="flex items-center justify-between text-slate-300">
-                                        <span>Total Item</span>
-                                        <span id="cart-total-qty">0</span>
-                                    </div>
-                                    <div class="flex items-center justify-between border-t border-white/10 pt-3 text-base font-semibold text-white">
-                                        <span>Total Bayar</span>
-                                        <span id="cart-total">Rp 0</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-4">
+                <div class="absolute inset-0 flex items-end justify-center px-3 py-3 sm:items-center sm:px-4 sm:py-6">
+                    <div id="cart-sheet" class="w-full max-w-md translate-y-8 overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/95 shadow-2xl shadow-slate-950/40 backdrop-blur transition duration-200 ease-out max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-3rem)]">
+                        <div class="flex max-h-[calc(100dvh-1.5rem)] flex-col p-4 sm:max-h-[calc(100dvh-3rem)]">
+                            <div class="mx-auto mb-4 h-1.5 w-14 rounded-full bg-white/15"></div>
+                            <div class="flex shrink-0 items-start justify-between gap-4">
                                 <div>
-                                    <label for="payment-method" class="mb-2 block text-sm font-medium text-slate-300">Metode Pembayaran</label>
-                                    <select id="payment-method" name="metode_pembayaran" class="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-white outline-none focus:border-emerald-300/60">
-                                        @foreach ($paymentMethods as $paymentMethod)
-                                            <option value="{{ $paymentMethod->type }}">{{ $paymentMethod->type }}</option>
-                                        @endforeach
-                                    </select>
+                                    <h2 class="text-lg font-semibold text-white">Keranjang</h2>
+                                    <p class="mt-1 text-sm text-slate-400">Pilih metode pembayaran dan simpan transaksi saat semua item sudah sesuai.</p>
+                                </div>
+                                <button id="cart-close-button" type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-lg text-white transition hover:bg-white/10">&times;</button>
+                            </div>
+
+                            <form id="checkout-form" method="POST" action="{{ route('kasir.store') }}" class="mt-5 flex min-h-0 flex-1 flex-col overflow-hidden">
+                            @csrf
+                            <div class="min-h-0 flex-1 space-y-5 overflow-y-auto pr-1 pb-4">
+                                <div id="cart-items" class="space-y-3"></div>
+                                <div id="cart-empty" class="rounded-3xl border border-dashed border-white/10 px-4 py-8 text-center text-sm text-slate-500">
+                                    Keranjang masih kosong. Tambahkan produk dari katalog di atas.
                                 </div>
 
-                                <div id="transfer-wrapper" class="hidden rounded-3xl border border-orange-300/20 bg-orange-400/10 p-4">
-                                    <div class="mb-3 text-sm font-semibold text-white">Informasi Transfer</div>
-                                    <div id="transfer-bank-accounts" class="space-y-3"></div>
-                                    <p id="transfer-empty" class="hidden text-xs text-orange-100/80">Belum ada rekening transfer yang aktif.</p>
+                                <div id="cart-summary-card" class="rounded-3xl border border-white/10 bg-white/[0.03] p-4">
+                                    <div class="space-y-3 text-sm">
+                                        <div class="flex items-center justify-between text-slate-300">
+                                            <span>Subtotal</span>
+                                            <span id="cart-subtotal">Rp 0</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-slate-300">
+                                            <span>Total Item</span>
+                                            <span id="cart-total-qty">0</span>
+                                        </div>
+                                        <div class="flex items-center justify-between border-t border-white/10 pt-3 text-base font-semibold text-white">
+                                            <span>Total Bayar</span>
+                                            <span id="cart-total">Rp 0</span>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div id="cash-wrapper">
-                                    <label for="cash-input" class="mb-2 block text-sm font-medium text-slate-300">Nominal Tunai</label>
-                                    <input id="cash-input" name="bayar" type="number" min="0" step="0.01" value="0" class="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-white outline-none focus:border-emerald-300/60">
-                                    <p id="change-indicator" class="mt-2 text-xs text-slate-400">Kembalian akan dihitung otomatis saat nominal tunai cukup.</p>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="payment-method" class="mb-2 block text-sm font-medium text-slate-300">Metode Pembayaran</label>
+                                        <select id="payment-method" name="metode_pembayaran" class="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-white outline-none focus:border-emerald-300/60">
+                                            @foreach ($paymentMethods as $paymentMethod)
+                                                <option value="{{ $paymentMethod->type }}">{{ $paymentMethod->type }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div id="transfer-wrapper" class="hidden rounded-3xl border border-orange-300/20 bg-orange-400/10 p-4">
+                                        <div class="mb-3 text-sm font-semibold text-white">Informasi Transfer</div>
+                                        <div id="transfer-bank-accounts" class="space-y-3"></div>
+                                        <p id="transfer-empty" class="hidden text-xs text-orange-100/80">Belum ada rekening transfer yang aktif.</p>
+                                    </div>
+
+                                    <div id="cash-wrapper">
+                                        <label for="cash-input" class="mb-2 block text-sm font-medium text-slate-300">Nominal Tunai</label>
+                                        <input id="cash-input" name="bayar" type="number" min="0" step="0.01" value="0" class="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-white outline-none focus:border-emerald-300/60">
+                                        <p id="change-indicator" class="mt-2 text-xs text-slate-400">Kembalian akan dihitung otomatis saat nominal tunai cukup.</p>
+                                    </div>
+
+                                    <div id="checkout-hidden-items"></div>
                                 </div>
                             </div>
 
-                            <div id="checkout-hidden-items"></div>
-
-                            <button type="submit" class="inline-flex w-full items-center justify-center rounded-2xl bg-emerald-400 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-300">
-                                Simpan Transaksi
-                            </button>
-                        </form>
+                            <div class="shrink-0 border-t border-white/10 pt-4 pb-[env(safe-area-inset-bottom)]">
+                                <button type="submit" class="inline-flex w-full items-center justify-center rounded-2xl bg-emerald-400 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-300">
+                                    Simpan Transaksi
+                                </button>
+                            </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -222,6 +459,9 @@
         const products = @json($products);
         const categoryOptions = @json($categories);
         const bankAccounts = @json($bankAccounts ?? []);
+        const themeToggleButton = document.getElementById('theme-toggle-button');
+        const themeToggleLabel = document.getElementById('theme-toggle-label');
+        const themeToggleIcon = document.getElementById('theme-toggle-icon');
         const currency = new Intl.NumberFormat('id-ID');
         const categories = [
             { id: 'all', nama: 'Semua' },
@@ -270,6 +510,54 @@
             .replaceAll('>', '&gt;')
             .replaceAll('"', '&quot;')
             .replaceAll("'", '&#039;');
+
+        const getTheme = () => document.documentElement.dataset.theme || 'dark';
+
+        const setTheme = theme => {
+            const nextTheme = theme === 'light' ? 'light' : 'dark';
+
+            document.documentElement.dataset.theme = nextTheme;
+            document.body.dataset.theme = nextTheme;
+
+            try {
+                localStorage.setItem('kasir-theme', nextTheme);
+            } catch (error) {
+                // Ignore storage failures and keep the in-memory theme.
+            }
+
+            if (themeToggleLabel) {
+                themeToggleLabel.textContent = nextTheme === 'light' ? 'Dark' : 'Light';
+            }
+
+            if (themeToggleButton) {
+                themeToggleButton.setAttribute('aria-label', nextTheme === 'light' ? 'Ganti ke mode gelap' : 'Ganti ke mode terang');
+                themeToggleButton.title = nextTheme === 'light' ? 'Ganti ke mode gelap' : 'Ganti ke mode terang';
+            }
+
+            if (themeToggleIcon) {
+                themeToggleIcon.innerHTML = nextTheme === 'light'
+                    ? `
+                        <svg viewBox="0 0 24 24" class="h-4.5 w-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2"></path>
+                            <path d="M12 20v2"></path>
+                            <path d="m4.93 4.93 1.41 1.41"></path>
+                            <path d="m17.66 17.66 1.41 1.41"></path>
+                            <path d="M2 12h2"></path>
+                            <path d="M20 12h2"></path>
+                            <path d="m6.34 17.66-1.41 1.41"></path>
+                            <path d="m19.07 4.93-1.41 1.41"></path>
+                        </svg>
+                    `
+                    : `
+                        <svg viewBox="0 0 24 24" class="h-4.5 w-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        </svg>
+                    `;
+            }
+        };
+
+        setTheme(getTheme());
 
         const formatCurrency = value => `Rp ${currency.format(value || 0)}`;
         const formatReceiptDate = value => {
@@ -502,21 +790,21 @@
                     : 'border-white/10 bg-white/[0.05] hover:border-orange-300/40 hover:bg-white/[0.08] hover:shadow-lg hover:shadow-slate-950/20';
 
                 return `
-                    <article class="group overflow-hidden rounded-[1.5rem] border ${cardTone} transition">
-                        <div class="aspect-[4/3] overflow-hidden bg-slate-900/80">
+                    <article class="group overflow-hidden rounded-[1.4rem] border ${cardTone} transition">
+                        <div class="aspect-[16/10] overflow-hidden bg-slate-900/80">
                             ${product.image_url
                                 ? `<img src="${escapeHtml(product.image_url)}" alt="${escapeHtml(product.nama)}" class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]">`
                                 : `<div class="flex h-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 text-sm font-medium text-slate-500">Tanpa Gambar</div>`}
                         </div>
-                        <div class="space-y-4 p-4">
-                            <div>
-                                <h3 class="line-clamp-2 text-[15px] font-semibold text-white">${escapeHtml(product.nama)}</h3>
-                                <div class="mt-2 flex items-center justify-between gap-3 text-sm">
-                                    <span class="font-semibold text-[#ff7a1a]">${formatCurrency(product.harga)}</span>
-                                    <span class="rounded-full bg-white/10 px-2.5 py-1 text-xs text-slate-300">Stok ${product.stok}</span>
+                        <div class="space-y-3 p-3.5">
+                            <div class="space-y-2">
+                                <h3 class="min-h-[2.5rem] line-clamp-2 text-[14px] font-semibold leading-tight text-white">${escapeHtml(product.nama)}</h3>
+                                <div class="grid grid-cols-2 gap-2 text-sm">
+                                    <span class="inline-flex min-w-0 items-center justify-center rounded-full bg-[#ff7a1a]/10 px-2.5 py-1 text-[13px] font-semibold text-[#ff9a4d]">${formatCurrency(product.harga)}</span>
+                                    <span class="inline-flex min-w-0 items-center justify-center rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-slate-200 whitespace-nowrap">Stok ${product.stok}</span>
                                 </div>
                             </div>
-                            <div class="flex items-center justify-between gap-3">
+                            <div class="flex items-center justify-between gap-3 pt-1">
                                 <button type="button" data-action="decrease" data-id="${product.id}" class="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-slate-900/80 text-lg text-white transition hover:border-white/20 hover:bg-slate-800">-</button>
                                 <div class="min-w-[3rem] text-center text-sm font-semibold text-white">${inCartQty}</div>
                                 <button type="button" data-action="increase" data-id="${product.id}" class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[#ff7a1a] text-lg font-semibold text-white transition hover:bg-[#ff8c34] disabled:cursor-not-allowed disabled:bg-slate-300" ${isOutOfStock ? 'disabled' : ''}>+</button>
@@ -661,6 +949,11 @@
 
         paymentMethod.addEventListener('change', renderCart);
         cashInput.addEventListener('input', renderCart);
+        if (themeToggleButton) {
+            themeToggleButton.addEventListener('click', () => {
+                setTheme(getTheme() === 'light' ? 'dark' : 'light');
+            });
+        }
         cartToggleButton.addEventListener('click', () => setCartPanelOpen(true));
         cartCloseButton.addEventListener('click', () => setCartPanelOpen(false));
         cartBackdrop.addEventListener('click', () => setCartPanelOpen(false));

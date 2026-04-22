@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Kasir</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    @include('kasir.partials.theme-head')
+    @include('kasir.partials.theme-style')
 </head>
 <body class="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
     <div class="relative isolate overflow-hidden">
-        <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.18),_transparent_35%),radial-gradient(circle_at_right,_rgba(59,130,246,0.16),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_45%,_#111827_100%)]"></div>
+        <div id="page-background" class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.18),_transparent_35%),radial-gradient(circle_at_right,_rgba(59,130,246,0.16),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_45%,_#111827_100%)]"></div>
 
         <header class="border-b border-white/10 bg-slate-950/80 backdrop-blur">
             <div class="mx-auto flex w-full max-w-md items-center justify-between gap-3 px-4 py-5">
@@ -18,12 +20,15 @@
                     <p class="mt-1 truncate text-sm text-slate-300">{{ $outlet->name }}</p>
                 </div>
 
-                <form method="POST" action="{{ route('kasir.logout') }}">
-                    @csrf
-                    <button type="submit" class="inline-flex h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 text-sm font-semibold text-slate-200 transition hover:bg-white/10">
-                        Keluar
-                    </button>
-                </form>
+                <div class="flex items-center gap-2">
+                    @include('kasir.partials.theme-toggle')
+                    <form method="POST" action="{{ route('kasir.logout') }}">
+                        @csrf
+                        <button type="submit" class="inline-flex h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 text-sm font-semibold text-slate-200 transition hover:bg-white/10">
+                            Keluar
+                        </button>
+                    </form>
+                </div>
             </div>
         </header>
 
@@ -139,5 +144,6 @@
 
         @include('kasir.partials.mobile-nav', ['active' => 'home'])
     </div>
+    @include('kasir.partials.theme-script')
 </body>
 </html>

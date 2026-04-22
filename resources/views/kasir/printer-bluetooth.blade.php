@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Printer Bluetooth</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    @include('kasir.partials.theme-head')
+    @include('kasir.partials.theme-style')
 </head>
 <body class="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
     <div class="relative isolate overflow-hidden">
-        <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.16),_transparent_35%),radial-gradient(circle_at_right,_rgba(59,130,246,0.16),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_45%,_#111827_100%)]"></div>
+        <div id="page-background" class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.16),_transparent_35%),radial-gradient(circle_at_right,_rgba(59,130,246,0.16),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_45%,_#111827_100%)]"></div>
 
         <header class="border-b border-white/10 bg-slate-950/80 backdrop-blur">
             <div class="mx-auto flex w-full max-w-md items-center justify-between gap-3 px-4 py-5">
@@ -17,14 +19,17 @@
                     <h1 class="text-2xl font-semibold tracking-tight text-white">Printer Bluetooth</h1>
                     <p class="mt-1 truncate text-sm text-slate-300">{{ $outlet->name }} • {{ $user->name }}</p>
                 </div>
-                <a href="{{ route('kasir.more') }}" class="inline-flex h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white transition hover:bg-white/10">
-                    Kembali
-                </a>
+                <div class="flex items-center gap-2">
+                    @include('kasir.partials.theme-toggle')
+                    <a href="{{ route('kasir.more') }}" class="inline-flex h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white transition hover:bg-white/10">
+                        Kembali
+                    </a>
+                </div>
             </div>
         </header>
 
-        <main class="mx-auto w-full max-w-md space-y-6 px-4 py-6 pb-28">
-            <section class="rounded-[2rem] border border-cyan-400/20 bg-cyan-500/10 p-5 shadow-2xl shadow-slate-950/20 backdrop-blur-xl">
+        <main id="printer-page" class="mx-auto w-full max-w-md space-y-6 px-4 py-6 pb-28">
+            <section id="printer-support-card" class="rounded-[2rem] border border-cyan-400/20 bg-cyan-500/10 p-5 shadow-2xl shadow-slate-950/20 backdrop-blur-xl">
                 <div class="flex items-start justify-between gap-4">
                     <div>
                         <p class="text-sm text-cyan-100/90">Status Browser</p>
@@ -37,7 +42,7 @@
                 </p>
             </section>
 
-            <section class="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl shadow-slate-950/20 backdrop-blur-xl">
+            <section id="printer-config-card" class="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl shadow-slate-950/20 backdrop-blur-xl">
                 <div class="flex items-center justify-between gap-3">
                     <div>
                         <p class="text-sm text-slate-300">Perangkat tersimpan</p>
@@ -94,7 +99,7 @@
                 </p>
             </section>
 
-            <section class="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl shadow-slate-950/20 backdrop-blur-xl">
+            <section id="printer-test-card" class="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl shadow-slate-950/20 backdrop-blur-xl">
                 <p class="text-sm text-slate-300">Test print</p>
                 <h2 class="mt-1 text-lg font-semibold text-white">Kirim struk percobaan</h2>
 
@@ -395,5 +400,6 @@ Printer siap dipakai.
         renderSupport();
         loadConfig();
     </script>
+    @include('kasir.partials.theme-script')
 </body>
 </html>
