@@ -101,7 +101,7 @@ class BarberSeeder extends Seeder
                 'updated_at' => $now,
             ]);
 
-            DB::table('produk_stocks')->insert([
+            DB::table('product_stocks')->insert([
                 'tenant_id'     => $tenantId,
                 'produk_id'     => $produkId,
                 'outlet_id'     => $outletId,
@@ -111,7 +111,7 @@ class BarberSeeder extends Seeder
                 'updated_at'    => $now,
             ]);
 
-            DB::table('produk_outlets')->insert([
+            DB::table('product_outlets')->insert([
                 'tenant_id'  => $tenantId,
                 'produk_id'  => $produkId,
                 'outlet_id'  => $outletId,
