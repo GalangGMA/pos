@@ -318,40 +318,44 @@
                     <style>
                         * { box-sizing: border-box; }
                         body { margin: 0; padding: 20px; background: #f1f5f9; color: #0f172a; font-family: Arial, sans-serif; }
-                        .receipt-shell { width: 360px; max-width: 100%; margin: 0 auto; }
-                        .receipt-card { background: rgba(255,255,255,0.98); border-radius: 28px; padding: 20px; box-shadow: 0 10px 28px rgba(15,23,42,0.08); }
+                        .receipt-shell { width: 300px; max-width: 100%; margin: 0 auto; }
+                        .receipt-card { background: rgba(255,255,255,0.98); border-radius: 24px; padding: 16px; box-shadow: 0 10px 28px rgba(15,23,42,0.08); }
                         .shop-header { text-align: center; margin-bottom: 20px; }
-                        .shop-name { font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
-                        .shop-meta { font-size: 13px; line-height: 1.45; color: #64748b; }
+                        .shop-name { font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
+                        .shop-meta { font-size: 11px; line-height: 1.45; color: #64748b; }
                         .section-block { margin-bottom: 4px; }
-                        .section-title { font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 12px; }
+                        .section-title { font-size: 13px; font-weight: 800; color: #0f172a; margin-bottom: 10px; }
                         .info-row, .summary-row, .summary-row-last { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-                        .info-row { margin-bottom: 10px; }
-                        .info-label, .summary-label { font-size: 13px; color: #64748b; }
-                        .info-value { flex: 1; font-size: 13px; font-weight: 700; color: #0f172a; text-align: right; }
-                        .divider { border-top: 1px dashed #e2e8f0; margin: 16px 0; }
+                        .info-row { margin-bottom: 8px; }
+                        .info-label, .summary-label { font-size: 11px; color: #64748b; }
+                        .info-value { flex: 1; font-size: 11px; font-weight: 700; color: #0f172a; text-align: right; }
+                        .divider { border-top: 1px dashed #e2e8f0; margin: 12px 0; }
                         table { width: 100%; border-collapse: collapse; }
-                        .product-header-text { font-size: 12px; font-weight: 700; color: #64748b; text-align: right; padding-bottom: 10px; }
+                        .product-header-text { font-size: 10px; font-weight: 700; color: #64748b; text-align: right; padding-bottom: 8px; }
                         .product-name-header { text-align: left; }
-                        .product-row td { padding: 10px 0; vertical-align: top; }
-                        .product-name-column { width: 58%; padding-right: 12px; }
-                        .product-name { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 3px; }
-                        .product-price { font-size: 12px; color: #64748b; }
-                        .product-qty { width: 16%; font-size: 13px; font-weight: 700; color: #0f172a; text-align: right; }
-                        .product-subtotal { width: 26%; font-size: 13px; font-weight: 800; color: #0f172a; text-align: right; }
-                        .summary-row { margin-bottom: 12px; }
-                        .summary-row-last { margin-top: 4px; padding-top: 14px; border-top: 1px solid #e2e8f0; }
-                        .summary-value { font-size: 14px; font-weight: 700; color: #0f172a; }
-                        .summary-highlight-label { font-size: 15px; font-weight: 800; color: #0f766e; }
-                        .summary-highlight-value { font-size: 18px; font-weight: 800; color: #0f766e; }
-                        .receipt-footer { margin-top: 18px; text-align: center; font-size: 12px; color: #64748b; }
+                        .product-row td { padding: 8px 0; vertical-align: top; }
+                        .product-name-column { width: 50%; padding-right: 8px; }
+                        .product-name { font-size: 11px; font-weight: 700; color: #0f172a; margin-bottom: 2px; word-break: break-word; }
+                        .product-price { font-size: 10px; color: #64748b; }
+                        .product-qty { width: 14%; font-size: 10px; font-weight: 700; color: #0f172a; text-align: right; white-space: nowrap; }
+                        .product-subtotal { width: 36%; font-size: 10px; font-weight: 800; color: #0f172a; text-align: right; white-space: nowrap; }
+                        .summary-row { margin-bottom: 10px; }
+                        .summary-row-last { margin-top: 4px; padding-top: 10px; border-top: 1px solid #e2e8f0; }
+                        .summary-value { font-size: 11px; font-weight: 700; color: #0f172a; }
+                        .summary-highlight-label { font-size: 12px; font-weight: 800; color: #0f766e; }
+                        .summary-highlight-value { font-size: 13px; font-weight: 800; color: #0f766e; }
+                        .receipt-footer { margin-top: 14px; text-align: center; font-size: 10px; color: #64748b; }
                         @media print {
                             body { padding: 0; background: #fff; }
                             .receipt-shell { width: 100%; }
-                            .receipt-card { width: 80mm; max-width: 80mm; border-radius: 0; box-shadow: none; padding: 8mm 6mm; }
-                            .shop-name { font-size: 18px; }
-                            .section-title { font-size: 14px; }
-                            .summary-highlight-value { font-size: 16px; }
+                            .receipt-card { width: 58mm; max-width: 58mm; border-radius: 0; box-shadow: none; padding: 4mm 3mm; }
+                            .shop-name { font-size: 14px; }
+                            .shop-meta { font-size: 9px; }
+                            .section-title { font-size: 11px; }
+                            .info-label, .summary-label, .info-value, .summary-value { font-size: 9px; }
+                            .product-header-text, .product-price, .product-qty, .product-subtotal, .receipt-footer { font-size: 8px; }
+                            .product-name { font-size: 9px; }
+                            .summary-highlight-label, .summary-highlight-value { font-size: 10px; }
                         }
                     </style>
                 </head>
