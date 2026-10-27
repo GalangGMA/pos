@@ -23,6 +23,11 @@ class SubscriptionResource extends Resource
     protected static ?string $navigationGroup = 'SaaS';
     protected static ?string $navigationLabel = 'Subscription';
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     public static function form(Form $form): Form
     {
         return $form->schema([

@@ -29,6 +29,11 @@ class SubscriptionPaymentResource extends Resource
     protected static ?string $navigationGroup = 'Billing';
     protected static ?string $navigationLabel = 'Subscription Payments';
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     public static function form(Form $form): Form
     {
         return $form->schema([
